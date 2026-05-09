@@ -1,0 +1,29 @@
+{
+  "threshold_to_test": [0.40, 0.45, 0.50, 0.55, 0.60, 0.62, 0.65, 0.70, 0.75, 0.80, 0.85],
+  "posts": [
+    {"text": "OpenAI just released a new model that might replace junior developers.", "expected": ["bot_a", "bot_b"]},
+    {"text": "Bitcoin hits a new all-time high amid regulatory ETF approvals.", "expected": ["bot_a", "bot_c"]},
+    {"text": "FAA approves Starship for Mars-bound test launches next quarter.", "expected": ["bot_a"]},
+    {"text": "Federal Reserve raises rates 75bps, S&P drops 3% intraday.", "expected": ["bot_c"]},
+    {"text": "Meta lays off 15,000 engineers to fund AI research division.", "expected": ["bot_a", "bot_b", "bot_c"]},
+    {"text": "New study links heavy smartphone use to teen depression and anxiety.", "expected": ["bot_b"]},
+    {"text": "EU passes strict AI Act with steep fines for non-compliance.", "expected": ["bot_a", "bot_b"]},
+    {"text": "Renewable energy is now cheaper than coal in most markets globally.", "expected": ["bot_a", "bot_b"]},
+    {"text": "Tesla recalls 2 million vehicles for autopilot software fix.", "expected": ["bot_a", "bot_b", "bot_c"]},
+    {"text": "Wage growth lags inflation for the eighteenth straight month.", "expected": ["bot_b", "bot_c"]},
+    {"text": "Apple Vision Pro flops, division shut down after dismal sales.", "expected": ["bot_a", "bot_c"]},
+    {"text": "Hospital ER wait times hit record highs as system buckles.", "expected": ["bot_b"]},
+    {"text": "JP Morgan launches stablecoin for institutional clients.", "expected": ["bot_a", "bot_c"]},
+    {"text": "Latest Marvel movie breaks opening-weekend box office records.", "expected": []},
+    {"text": "ChatGPT now generates working SaaS startups from a single prompt.", "expected": ["bot_a", "bot_b", "bot_c"]},
+    {"text": "Norway's wealth fund divests from oil majors over climate risk.", "expected": ["bot_b", "bot_c"]},
+    {"text": "Boring Company hits 1 km/hr in latest tunnel test, Musk celebrates.", "expected": ["bot_a"]},
+    {"text": "Local park converted to luxury condos, longtime residents protest.", "expected": ["bot_b"]},
+    {"text": "Quant fund Renaissance Technologies posts record year for Medallion.", "expected": ["bot_c"]},
+    {"text": "Major hospital system hit by ransomware, surgeries delayed.", "expected": ["bot_b"]},
+    {"text": "Bitcoin mining banned in three more US states over energy use.", "expected": ["bot_a", "bot_b", "bot_c"]},
+    {"text": "Tesla robotaxi service launches commercially in Austin this week.", "expected": ["bot_a", "bot_c"]},
+    {"text": "Senate passes bipartisan bill capping monthly insulin prices.", "expected": ["bot_b"]},
+    {"text": "Sam Altman raises $7T to build new AI chip fabrication plants.", "expected": ["bot_a", "bot_b", "bot_c"]}
+  ]
+}
