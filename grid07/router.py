@@ -43,10 +43,8 @@ def route_post_to_bots(
 ) -> List[RouteMatch]:
     """Returns one RouteMatch per bot whose top-matching facet exceeds threshold.
 
-    Note: ChromaDB returns L2 distance for normalized vectors; we convert to
-    cosine similarity = 1 - distance/2 (since both vectors are unit length,
-    but Chroma's cosine "distance" is 1 - cos_sim already). We use the
-    documented behavior: distance = 1 - cos_sim.
+    ChromaDB with `hnsw:space=cosine` returns distance = 1 - cosine_similarity,
+    so we recover similarity as `1 - dist`.
     """
     if threshold is None:
         threshold = float(os.getenv("ROUTING_THRESHOLD", "0.62"))
