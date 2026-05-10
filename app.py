@@ -1,23 +1,31 @@
 """Streamlit demo: live tour of all three phases."""
-import os, json
+import os
+import json
 from pathlib import Path
+
+# Import Streamlit first and load secrets BEFORE other imports
 import streamlit as st
+
+# Load secrets into environment BEFORE loading dotenv or other modules
+# This ensures GROQ_API_KEY is available when grid07 modules are imported
+for key in ("GROQ_API_KEY", "GROQ_MODEL", "EMBEDDING_MODEL", "ROUTING_THRESHOLD"):
+    if key not in os.environ:
+        # Try Streamlit Cloud secrets first
+        if key in st.secrets:
+            os.environ[key] = st.secrets[key]
+        # Fallback to .env file for local development
+        elif key == "GROQ_API_KEY":
+            from dotenv import load_dotenv
+            load_dotenv()
+            if key in os.environ:
+                os.environ[key] = os.environ[key]
+
 from dotenv import load_dotenv
-
 load_dotenv()
-
-# Allow Streamlit Cloud secrets to populate env vars when .env isn't present
-for _key in ("GROQ_API_KEY", "GROQ_MODEL", "EMBEDDING_MODEL", "ROUTING_THRESHOLD"):
-    if _key not in os.environ:
-        try:
-            if _key in st.secrets:
-                os.environ[_key] = st.secrets[_key]
-        except Exception:
-            pass
 
 st.set_page_config(page_title="Grid07 Cognitive Routing", layout="wide")
 st.title("Grid07 — Cognitive Routing & RAG")
-st.caption("AI Engineering Assignment by Dheeraj")
+st.caption("AI Engineering Assignment by Dheeraj Peeleti")
 
 tab1, tab2, tab3, tab4 = st.tabs(["1. Route a Post", "2. Generate a Post", "3. Defend a Reply", "4. Evals"])
 
@@ -74,7 +82,8 @@ with tab3:
 with tab4:
     st.header("Eval results")
     if st.button("Run all evals (takes ~30s)"):
-        import io, contextlib
+        import io
+        import contextlib
         from eval.run_evals import evaluate_routing, evaluate_injections
         buf = io.StringIO()
         with contextlib.redirect_stdout(buf):

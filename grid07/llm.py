@@ -7,6 +7,12 @@ from typing import Type, TypeVar
 T = TypeVar("T", bound=BaseModel)
 
 def get_llm(temperature: float = 0.7) -> ChatGroq:
+    api_key = os.getenv("GROQ_API_KEY")
+    if not api_key:
+        raise ValueError(
+            "GROQ_API_KEY environment variable is not set. "
+            "Please set it in .env file for local development or in Streamlit Cloud secrets."
+        )
     return ChatGroq(
         model=os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile"),
         temperature=temperature,
