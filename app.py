@@ -1,27 +1,29 @@
 """Streamlit demo: live tour of all three phases."""
 import os
-import json
-from pathlib import Path
 
-# Import Streamlit first and load secrets BEFORE other imports
+# Import Streamlit first
 import streamlit as st
 
-# Load secrets into environment BEFORE loading dotenv or other modules
-# This ensures GROQ_API_KEY is available when grid07 modules are imported
-for key in ("GROQ_API_KEY", "GROQ_MODEL", "EMBEDDING_MODEL", "ROUTING_THRESHOLD"):
+# Load secrets into environment BEFORE any other imports
+# Streamlit Cloud secrets are in st.secrets dictionary
+secrets_to_load = ["GROQ_API_KEY", "GROQ_MODEL", "EMBEDDING_MODEL", "ROUTING_THRESHOLD"]
+for key in secrets_to_load:
     if key not in os.environ:
-        # Try Streamlit Cloud secrets first
-        if key in st.secrets:
-            os.environ[key] = st.secrets[key]
-        # Fallback to .env file for local development
-        elif key == "GROQ_API_KEY":
-            from dotenv import load_dotenv
-            load_dotenv()
-            if key in os.environ:
-                os.environ[key] = os.environ[key]
+        # Try Streamlit Cloud secrets
+        try:
+            value = st.secrets.get(key)
+            if value:
+                os.environ[key] = str(value)
+        except Exception:
+            pass
 
+# Load .env file for local development (fallback)
 from dotenv import load_dotenv
 load_dotenv()
+
+# Verify API key is set (show warning but don't stop)
+if not os.getenv("GROQ_API_KEY"):
+    st.warning("GROQ_API_KEY not found. Please set it in Streamlit Cloud secrets or .env file for full functionality.")
 
 st.set_page_config(page_title="Grid07 Cognitive Routing", layout="wide")
 st.title("Grid07 — Cognitive Routing & RAG")
