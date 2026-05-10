@@ -6,6 +6,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Allow Streamlit Cloud secrets to populate env vars when .env isn't present
+for _key in ("GROQ_API_KEY", "GROQ_MODEL", "EMBEDDING_MODEL", "ROUTING_THRESHOLD"):
+    if _key not in os.environ:
+        try:
+            if _key in st.secrets:
+                os.environ[_key] = st.secrets[_key]
+        except Exception:
+            pass
+
 st.set_page_config(page_title="Grid07 Cognitive Routing", layout="wide")
 st.title("Grid07 — Cognitive Routing & RAG")
 st.caption("AI Engineering Assignment by Dheeraj")
