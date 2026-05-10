@@ -1,4 +1,5 @@
-"""Phase 2: 4-node LangGraph with critique→revise loop and structured JSON output."""
+"""Phase 2: 5-node LangGraph (decide → search → draft → critique → finalize)
+with conditional revision loop and structured JSON output."""
 from typing import TypedDict, Literal
 from pydantic import BaseModel, Field
 from langgraph.graph import StateGraph, END
@@ -34,12 +35,20 @@ class FinalPost(BaseModel):
     post_content: str
 
 # ----- Nodes -----
+# List must match keys in grid07/tools.py::_FAKE_NEWS
+AVAILABLE_TOPICS = ["crypto", "ai", "regulation", "elon", "billionaire", "climate", "markets", "labor"]
+
 def decide_search(state: ContentState) -> ContentState:
     prompt = f"""You are this bot:
 {state['persona_desc']}
 
-Pick ONE topical thing in the news this week your persona would have a strong opinion about.
-Return JSON with the topic and a short search query (3-6 words).
+Available news topic keywords today: {', '.join(AVAILABLE_TOPICS)}
+
+Pick exactly ONE keyword from the list above that your persona would have the
+strongest, most opinionated take on. Then form a short search query (3-6 words)
+that contains that keyword.
+
+Return JSON with the chosen topic and the search query.
 """
     out = structured_call(prompt, TopicChoice, temperature=0.8)
     return {"topic": out.topic, "search_query": out.search_query}
