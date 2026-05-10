@@ -1,5 +1,5 @@
 """Bot personas with topical facet decomposition for multi-vector routing."""
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import List
 
 @dataclass
