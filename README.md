@@ -1,5 +1,7 @@
 # Grid07 Cognitive Routing & RAG
 
+**Live demo:** https://assignment-f39j3sdnazvqlvfbzvya4x.streamlit.app
+
 A LangGraph-orchestrated AI cognitive loop: vector-based persona routing, autonomous post generation, and deep-thread RAG defense with a hardened prompt-injection guardrail.
 
 By **Dheeraj Peeleti** · [LinkedIn](https://www.linkedin.com/in/dheerajpeeleti) · [dheera1312@gmail.com](mailto:dheera1312@gmail.com) · Built in ~1 day · Stack: LangChain + LangGraph + ChromaDB + bge-small + Llama-3.3-70B (Groq)
@@ -9,7 +11,7 @@ By **Dheeraj Peeleti** · [LinkedIn](https://www.linkedin.com/in/dheerajpeeleti)
 - **Phase 1 router:** multi-facet persona embeddings (5 facets × 3 bots = 15 vectors), max-facet-similarity routing, threshold calibrated from a 24-post labeled eval set. **F1 = 0.804 at threshold 0.50.**
 - **Phase 2 LangGraph:** 5-node state machine with `decide → search → draft → critique → finalize`, conditional revision loop, structured JSON output via Pydantic.
 - **Phase 3 defense:** 3-layer guardrail (tag-wrapped user input + persona-lock tail + in-character recognition). **Defended 8/8 injection attacks** in test suite.
-- **Streamlit demo:** `streamlit run app.py` — live tour of all three phases plus eval runner.
+- **Streamlit demo:** https://assignment-f39j3sdnazvqlvfbzvya4x.streamlit.app — live interactive demo of all three phases.
 
 ## Architecture
 
